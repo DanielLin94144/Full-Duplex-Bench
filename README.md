@@ -95,7 +95,7 @@ Each subfolder contains its own README with more detailed instructions.
       <td>0.867</td><td>3.615</td><td>1.409</td>
     </tr>
     <tr>
-      <td><i>Gemini Live</i></td>
+      <td><i>Gemini Live 2.0 (deprecated)</i></td>
       <td><i><b>0.255</b></i></td><td><i><b>0.310</b></i></td>
       <td><i><b>0.091</b></i></td><td><i>0.012</i></td><td><i>0.896</i></td>
       <td><i>0.655</i></td><td><i>1.301</i></td>
@@ -137,6 +137,7 @@ The goal of model inference is to let the model generate the time-synchronous `o
 
 We provide inference scripts under `model_inference/` for different models:
 - **Gemini 2.5 Native Audio**: `model_inference/gemini/inference_gemini25_native.py`
+- **Gemini 2.0 (NOT SUPPORTED)**: originally in `model_inference/gemini/inference.py`, but it is not supported anymore due to the API changes.
 - **PersonaPlex** (NVIDIA): See [official repo](https://github.com/NVIDIA/personaplex#offline-evaluation)
 - **Moshi**: `model_inference/moshi/inference.py`
 - **Nova Sonic**: `model_inference/sonic/inference.py`
@@ -151,10 +152,6 @@ python model_inference/gemini/inference_gemini25_native.py \
     --overwrite
 ```
 
-##### ⚠️ Issue
-We have observed the same issue and suspect it is due to recent internal changes in **Gemini**.  
-We are investigating and will share updates once a solution is found.
-
 #### 2. Prepare for Evaluation with time-aligned transcription
 Under `get_transcript` folder, you can find `asr.py` to obtain the time-aligned transcription for the model generated audio. For more details please see the readme in the folder.
 
@@ -167,18 +164,25 @@ If you have any questions, please feel free to submit an issue or contact Guan-T
 If you found this research helpful, please consider citing our work:
 
 ```
-@article{lin2025full,
+@article{lin2025full_v1,
   title={Full-duplex-bench: A benchmark to evaluate full-duplex spoken dialogue models on turn-taking capabilities},
   author={Lin, Guan-Ting and Lian, Jiachen and Li, Tingle and Wang, Qirui and Anumanchipalli, Gopala and Liu, Alexander H and Lee, Hung-yi},
   journal={arXiv preprint arXiv:2503.04721},
   year={2025}
 }
 
-@article{lin2025full,
+@article{lin2025full_v15,
   title={Full-Duplex-Bench v1. 5: Evaluating Overlap Handling for Full-Duplex Speech Models},
   author={Lin, Guan-Ting and Kuan, Shih-Yun Shan and Wang, Qirui and Lian, Jiachen and Li, Tingle and Lee, Hung-yi},
   journal={arXiv preprint arXiv:2507.23159},
   year={2025}
 }
+@article{lin2026full_v2,
+  title={Full-Duplex-Bench-v2: A Multi-Turn Evaluation Framework for Duplex Dialogue Systems with an Automated Examiner},
+  author={Lin, Guan-Ting and Kuan, Shih-Yun Shan and Shi, Jiatong and Chang, Kai-Wei and Arora, Siddhant and Watanabe, Shinji and Lee, Hung-yi},
+  journal={arXiv preprint arXiv:2510.07838},
+  year={2026}
+}
 ```
+
 
