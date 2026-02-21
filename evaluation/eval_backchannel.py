@@ -106,13 +106,7 @@ def eval_backchannel(data_dir):
                         else:
                             TOR = 1
 
-                    if len(backchannel_prediction) > 0:
-                        print(backchannel_prediction)
-
-                    if TOR == 1:
-                        backchannel_prediction = []
-                    else:
-                        backchannel_prediction.append([start_time, end_time])
+                    backchannel_prediction.append([start_time, end_time])
 
         print(f"backchannel prediction is {backchannel_prediction}")
 

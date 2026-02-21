@@ -98,9 +98,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--task",
         type=str,
-        default="full",
-        choices=["full", "user_interruption"],
-        help="Choose 'full' for entire transcript or 'user_interruption' to crop before ASR",
+        default="default",
+        choices=["default", "user_interruption"],
+        help="Choose 'default' for entire transcript or 'user_interruption' to crop before ASR.",
     )
     args = parser.parse_args()
 

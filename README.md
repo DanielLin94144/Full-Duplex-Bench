@@ -11,6 +11,7 @@ Benchmark for full-duplex spoken dialogue models — v1.0 evaluates turn-taking,
 [![code](https://img.shields.io/badge/Github-Code-keygen.svg?logo=github)](https://github.com/DanielLin94144/Full-Duplex-Bench)
 
 ## News 🔥
+- **(2026/2/21) Codebase Update for New Models and Bug Fixes**: Add Gemini 2.5 Native Audio & PersonaPlex, and update the codebase.
 - **(2025/8/22) v1.5 Server-client Model inference Code Release**: Added server-client inference scripts under [`model_inference/`](./model_inference).
 - **(2025/8/15) v1.5 Data Release**: Added v1.5 dataset with overlap scenarios and metadata annotations under [`dataset/`](./dataset).
 - **(2025/8/14) v1.5 Evaluation Code Release**: Added support for overlap handling with new metrics in Full-Duplex-Bench v1.5 under [`evaluation/`](./evaluation).
@@ -66,30 +67,37 @@ Each subfolder contains its own README with more detailed instructions.
   </thead>
   <tbody>
     <tr>
+      <td><b>PersonaPlex</b></td>
+      <td>0.584</td><td>0.662</td>
+      <td>0.327</td><td><b>0.025</b></td><td><b>0.649</b></td>
+      <td><b>0.992</b></td><td><b>0.070</b></td>
+      <td><b>1.000</b></td><td>4.210</td><td>0.400</td>
+    </tr>
+    <tr>
       <td><b>dGSLM</b></td>
       <td>0.934</td><td>0.935</td>
-      <td>0.691</td><td><b>0.015</b></td><td><b>0.934</b></td>
-      <td><b>0.975</b></td><td>0.352</td>
+      <td>0.691</td><td>0.015</td><td>0.934</td>
+      <td>0.975</td><td>0.352</td>
       <td>0.917</td><td>0.201</td><td>2.531</td>
     </tr>
     <tr>
       <td><b>Moshi</b></td>
       <td>0.985</td><td>0.980</td>
       <td>1.000</td><td>0.001</td><td>0.957</td>
-      <td>0.941</td><td><b>0.265</b></td>
+      <td>0.941</td><td>0.265</td>
       <td><b>1.000</b></td><td>0.765</td><td><b>0.257</b></td>
     </tr>
     <tr>
       <td><b>Freeze-Omni</b></td>
-      <td><b>0.642</b></td><td><b>0.481</b></td>
+      <td>0.642</td><td>0.481</td>
       <td><b>0.636</b></td><td>0.001</td><td>0.997</td>
       <td>0.336</td><td>0.953</td>
-      <td>0.867</td><td><b>3.615</b></td><td>1.409</td>
+      <td>0.867</td><td>3.615</td><td>1.409</td>
     </tr>
     <tr>
       <td><i>Gemini Live</i></td>
-      <td><i>0.255</i></td><td><i>0.310</i></td>
-      <td><i>0.091</i></td><td><i>0.012</i></td><td><i>0.896</i></td>
+      <td><i><b>0.255</b></i></td><td><i><b>0.310</b></i></td>
+      <td><i><b>0.091</b></i></td><td><i>0.012</i></td><td><i>0.896</i></td>
       <td><i>0.655</i></td><td><i>1.301</i></td>
       <td><i>0.891</i></td><td><i>3.376</i></td><td><i>1.183</i></td>
     </tr>
@@ -104,17 +112,45 @@ Each subfolder contains its own README with more detailed instructions.
 
 ## Getting Started 🏁
 ### Installation
-```
+```bash
 conda create -n full-duplex-bench python=3.10
 conda activate full-duplex-bench
 pip install -r requirements.txt
 ```
 
+### Configuration
+Create a `.env` file in the project root with your API keys:
+```bash
+cp .env.example .env
+# Edit .env with your actual API keys
+```
+
+Required environment variables (see `.env.example` for template):
+- `OPENAI_API_KEY` - For GPT-4o evaluation and models
+- `GEMINI_API_KEY` - For Gemini models
+- `HF_TOKEN` - For PersonaPlex and other HuggingFace models
+- `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION` - For Nova Sonic
+
 ### Step-by-step Instruction
 #### 1. Model Inference
-The goal of model inference is to let the model generate the time-synchronous `output.wav` given the audio stream of user speech (`input.wav`). You can use you own model to generate the output speech for evaluation.
+The goal of model inference is to let the model generate the time-synchronous `output.wav` given the audio stream of user speech (`input.wav`). You can use your own model to generate the output speech for evaluation.
 
-We will provide the example inference code of Freeze-omni under `model_inference/freeze-omni` for different tasks. 
+We provide inference scripts under `model_inference/` for different models:
+- **Gemini 2.5 Native Audio**: `model_inference/gemini/inference_gemini25_native.py`
+- **PersonaPlex** (NVIDIA): See [official repo](https://github.com/NVIDIA/personaplex#offline-evaluation)
+- **Moshi**: `model_inference/moshi/inference.py`
+- **Nova Sonic**: `model_inference/sonic/inference.py`
+- **Freeze-Omni**: `model_inference/freeze-omni/`
+- **GPT-4o**: `model_inference/gpt4o/`
+
+Example usage for Gemini 2.5:
+```bash
+python model_inference/gemini/inference_gemini25_native.py \
+    --base-dir /path/to/data \
+    --task backchannel \
+    --overwrite
+```
+
 ##### ⚠️ Issue
 We have observed the same issue and suspect it is due to recent internal changes in **Gemini**.  
 We are investigating and will share updates once a solution is found.

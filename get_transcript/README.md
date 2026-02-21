@@ -13,4 +13,4 @@ python asr.py --root_dir {OUTPUT_WAV_ROOT_PATH} --task {TASK_NAME}
 ```
 
 - Replace `{OUTPUT_WAV_ROOT_PATH}` with the actual root path containing your output WAV files.
-- Replace `{TASK_NAME}` with one of `backchannel`, `pause_handling`, `smooth_turn_taking`, and `user_interruption`.
+- Replace `{TASK_NAME}` with `default` (full transcription) or `user_interruption` (crops audio after the interruption before ASR).

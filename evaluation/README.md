@@ -1,6 +1,6 @@
 # Full-Duplex-Bench Evaluation Scripts
 
-This folder contains evaluation scripts for **Full-Duplex-Bench** tasks, covering both **v1.0** and **v1.5**. Common utilities (e.g., `prepare_for_eval/asr.py`, `evaluate.py`) are shared, while v1.5 adds additional analyses and scripts.
+This folder contains evaluation scripts for **Full-Duplex-Bench** tasks, covering both **v1.0** and **v1.5**. Common utilities (e.g., `get_transcript/asr.py`, `evaluate.py`) are shared, while v1.5 adds additional analyses and scripts.
 
 ---
 
@@ -9,7 +9,7 @@ This folder contains evaluation scripts for **Full-Duplex-Bench** tasks, coverin
 ### A. Prepare ASR-aligned transcripts
 Before any evaluation, generate word-level time-aligned transcripts:
 ```bash
-python prepare_for_eval/asr.py
+python get_transcript/asr.py
 ```
 This creates `output.json` in each sample directory, aligned to the corresponding `output.wav`.
 
@@ -96,7 +96,7 @@ python significance_test.py   --root_dir /path/to/data-full-duplex-bench/v1.5/{f
 
 ### 3.5 Run Order & Dependencies
 
-1. **ASR alignment** (`prepare_for_eval/asr.py`) is required by all tasks to produce `output.json` (and `clean_*.json` for non-overlap audio).
+1. **ASR alignment** (`get_transcript/asr.py`) is required by all tasks to produce `output.json` (and `clean_*.json` for non-overlap audio).
 2. Run **Behavior** (`--task behavior`) to analyze the behavior categories.
 3. **Feature extraction** (`evaluate.py --task general_before_after`) must be completed **before** running `significance_test.py`.
 

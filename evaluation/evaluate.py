@@ -1,9 +1,13 @@
 import argparse
+import os
+from dotenv import load_dotenv
 from openai import OpenAI
 
+# Load environment variables from .env file
+load_dotenv()
+
 # For OpenAI API api key
-# organization = "YOUR_ORG_ID"
-api_key = "YOUR_API_KEY"
+api_key = os.getenv("OPENAI_API_KEY")
 
 
 def main():

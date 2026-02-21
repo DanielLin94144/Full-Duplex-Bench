@@ -17,6 +17,10 @@ import sys
 import time
 from pathlib import Path
 from typing import List
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 import numpy as np
 import soundfile as sf
@@ -28,9 +32,8 @@ from rx.scheduler.eventloop import AsyncIOScheduler
 
 
 ### Configuration ###
-os.environ["AWS_ACCESS_KEY_ID"] = "YOUR_AWS_ACCESS_KEY"
-os.environ["AWS_SECRET_ACCESS_KEY"] = "YOUR_AWS_SECRET_KEY"
-os.environ["AWS_DEFAULT_REGION"] = "us-east-1"
+# AWS credentials are loaded from .env file
+# Required: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION
 
 root_dir_path = "YOUR_ROOT_DIRECTORY_PATH"
 tasks = [

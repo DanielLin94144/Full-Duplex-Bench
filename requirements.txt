@@ -16,3 +16,6 @@ accelerate>=0.26.0
 nemo_toolkit[asr]
 git+https://github.com/sarulab-speech/UTMOSv2.git
 statsmodels
+python-dotenv
+google-genai
+sphn==0.1.12

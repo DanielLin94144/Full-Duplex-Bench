@@ -10,7 +10,7 @@ For installation instructions, please refer to the official [Freeze-Omni repo](h
 
 The following scripts demonstrate how to run model inference for each corresponding task in **Full-Duplex-Bench v1.0**:
 
-- `backchanneling.py`
+- `backchannel.py`
 - `pause_handling.py`
 - `smooth_turn_taking.py`
 - `user_interruption.py`
