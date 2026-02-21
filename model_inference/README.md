@@ -11,7 +11,7 @@ The following models are included, each in its own subfolder:
 
 - **Freeze-Omni** — [VITA-MLLM/Freeze-Omni](https://github.com/VITA-MLLM/Freeze-Omni)  
 - **Gemini** — [Google DeepMind Gemini](https://deepmind.google/technologies/gemini/)  
-- **GPT-4o** — [OpenAI GPT-4o](https://openai.com/index/hello-gpt-4o/)  
+- **GPT-Realtime** — [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime)  
 - **Moshi** — [Kyutai Labs Moshi](https://github.com/kyutai-labs/moshi)  
 - **PersonaPlex** — [NVIDIA PersonaPlex](https://github.com/NVIDIA/personaplex)  
 - **Sonic** — [Amazon Nova Sonic](https://aws.amazon.com/bedrock/)  

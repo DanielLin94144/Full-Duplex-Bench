@@ -96,10 +96,17 @@ Each subfolder contains its own README with more detailed instructions.
     </tr>
     <tr>
       <td><i>Gemini Live 2.0 (deprecated)</i></td>
-      <td><i><b>0.255</b></i></td><td><i><b>0.310</b></i></td>
-      <td><i><b>0.091</b></i></td><td><i>0.012</i></td><td><i>0.896</i></td>
+      <td><i>0.255</i></td><td><i>0.310</i></td>
+      <td><i>0.091</i></td><td><i>0.012</i></td><td><i>0.896</i></td>
       <td><i>0.655</i></td><td><i>1.301</i></td>
       <td><i>0.891</i></td><td><i>3.376</i></td><td><i>1.183</i></td>
+    </tr>
+    <tr>
+      <td><b>GPT-Realtime</b></td>
+      <td><b>0.010</b></td><td><b>0.120</b></td>
+      <td><b>0.000</b></td><td>0.007</td><td>0.980</td>
+      <td><b>1.000</b></td><td>1.470</td>
+      <td>0.970</td><td>3.850</td><td>1.500</td>
     </tr>
   </tbody>
 </table>
@@ -126,7 +133,7 @@ cp .env.example .env
 ```
 
 Required environment variables (see `.env.example` for template):
-- `OPENAI_API_KEY` - For GPT-4o evaluation and models
+- `OPENAI_API_KEY` - For GPT-Realtime evaluation and models
 - `GEMINI_API_KEY` - For Gemini models
 - `HF_TOKEN` - For PersonaPlex and other HuggingFace models
 - `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION` - For Nova Sonic
@@ -142,7 +149,7 @@ We provide inference scripts under `model_inference/` for different models:
 - **Moshi**: `model_inference/moshi/inference.py`
 - **Nova Sonic**: `model_inference/sonic/inference.py`
 - **Freeze-Omni**: `model_inference/freeze-omni/`
-- **GPT-4o**: `model_inference/gpt4o/`
+- **GPT-Realtime**: `model_inference/gpt-realtime/`
 
 Example usage for Gemini 2.5:
 ```bash
