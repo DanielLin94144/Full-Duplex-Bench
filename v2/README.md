@@ -1,7 +1,3 @@
-<div align="center">
-  <img src="../fdb-logo.png" width="40%" alt="FDB Logo" />
-</div>
-
 # Full-Duplex-Bench-v2 (FDB-v2)
 
 > A Multi-Turn Evaluation Framework for Duplex Dialogue Systems with an Automated Examiner.
