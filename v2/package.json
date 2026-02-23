@@ -1,0 +1,40 @@
+{
+  "name": "spoken-llm-pipeline",
+  "version": "1.0.0",
+  "description": "WebRTC-powered spoken-LLM orchestrator with dual AI conversations and audio recording",
+  "main": "orchestrator.js",
+  "scripts": {
+    "start": "node orchestrator.js gpt4oRealtime gpt4oRealtime",
+    "run": "MODEL_A=gpt4oRealtime MODEL_B=gpt4oRealtime ./run_gpt4o_conversation.sh"
+  },
+  "dependencies": {
+    "@google/genai": "^1.5.1",
+    "@openai/realtime-api-beta": "github:openai/openai-realtime-api-beta",
+    "@roamhq/wrtc-linux-x64": "^0.9.1",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "fetch": "^1.1.0",
+    "ffmpeg-static": "^4.4.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "node": "^22.16.0",
+    "node-fetch": "^3.3.2",
+    "node-wav": "^0.0.2",
+    "opusscript": "^0.1.1",
+    "socket.io-client": "^4.8.1",
+    "uuid": "^11.1.0",
+    "wav": "^1.0.2",
+    "wav-decoder": "^1.3.0",
+    "wav-encoder": "^1.3.0",
+    "wavefile": "^11.0.0",
+    "wrtc": "^0.4.7",
+    "ws": "^8.14.0",
+    "yargs": "^17.7.2"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "node-pre-gyp": "^0.17.0"
+  }
+}

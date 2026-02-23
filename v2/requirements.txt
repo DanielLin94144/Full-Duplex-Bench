@@ -1,0 +1,4 @@
+soundfile
+nemo_toolkit[asr]
+tqdm
+numpy==1.26

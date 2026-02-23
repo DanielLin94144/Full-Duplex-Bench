@@ -1,0 +1,68 @@
+{
+  "Daily.Daily.ordering.001": [
+    {
+      "speaker": "Examiner",
+      "text": "Hi there. I'd like to order a breakfast set to go."
+    },
+    {
+      "speaker": "Evaluatee",
+      "text": "Understood. Here's a practical set you could follow. One, warm-up. Start with"
+    },
+    {
+      "speaker": "Examiner",
+      "text": "Great. I'll go with a coffee. I'd like to pick it up around 8:30, and the name for the order is Sam. Sure, I'll have a coffee, and I'd like wheat bread, please."
+    },
+    {
+      "speaker": "Evaluatee",
+      "text": "understood. Sam, I've placed the order for the breakfast set, and it will be ready for pickup at 8:30. If you need anything else, just let me know. Certainly, Sam, I've updated the order. That's one breakfast set with a coffee and wheat bread. It will be all set for pickup at 8:30. If you need anything else, feel free to ask."
+    },
+    {
+      "speaker": "Examiner",
+      "text": "Great. So that's one breakfast set with coffee and wheat bread, ready for pickup at 8:30. The total should be around seven dollars. Thanks a lot. The conversation is over."
+    },
+    {
+      "speaker": "Evaluatee",
+      "text": "You're welcome, Sam. Everything's set. Have a great day."
+    },
+    {
+      "speaker": "Examiner",
+      "text": "Thanks, you too."
+    },
+    {
+      "speaker": "Evaluatee",
+      "text": "Thanks. Take care, Sam."
+    },
+    {
+      "speaker": "Examiner",
+      "text": "We'll do. Take care."
+    },
+    {
+      "speaker": "Evaluatee",
+      "text": "You too. Bye for now."
+    },
+    {
+      "speaker": "Examiner",
+      "text": "Bye for now."
+    },
+    {
+      "speaker": "Evaluatee",
+      "text": "Goodbye, and have a great day ahead."
+    },
+    {
+      "speaker": "Examiner",
+      "text": "Thanks. You too. Take care."
+    },
+    {
+      "speaker": "Evaluatee",
+      "text": "Thank you. Take care, and talk to you soon."
+    },
+    {
+      "speaker": "Examiner",
+      "text": "Talk to you soon. Take care."
+    },
+    {
+      "speaker": "Evaluatee",
+      "text": "Will do. Take care and bye for now."
+    }
+  ]
+}

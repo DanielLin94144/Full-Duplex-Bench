@@ -44,3 +44,7 @@ Thumbs.db
 # Audio/Data files (optional - uncomment if needed)
 # *.wav
 # *.mp3
+
+# V2 Architecture
+v2/node_modules/
+v2/outputs/
