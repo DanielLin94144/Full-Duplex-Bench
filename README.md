@@ -10,12 +10,14 @@
 [![arXiv v1.0](https://img.shields.io/badge/v1.0_arXiv-2503.04721-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2503.04721)
 [![arXiv v1.5](https://img.shields.io/badge/v1.5_arXiv-2507.23159-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2507.23159)
 [![arXiv v2.0](https://img.shields.io/badge/v2.0_arXiv-2510.07838-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2510.07838)
+[![arXiv v3.0](https://img.shields.io/badge/v3.0_arXiv-2604.04847-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2604.04847)
 [![code](https://img.shields.io/badge/Github-Code-keygen.svg?logo=github)](https://github.com/DanielLin94144/Full-Duplex-Bench)
 
 </div>
 
-Welcome to **Full-Duplex-Bench**, with v1.0, v1.5, and v2.0, a comprehensive framework designed to evaluate the conversational and turn-taking capabilities of spoken language models.
+Welcome to **Full-Duplex-Bench**, with v1.0, v1.5, v2.0, and v3.0, a comprehensive framework designed to evaluate the conversational and turn-taking capabilities of spoken language models.
 ## News 🔥
+- **(2026/4/15) Full-Duplex-Bench v3 Paper Released**: The [FDB-v3 paper](https://arxiv.org/abs/2604.04847) is now on arXiv with a [demo website](https://daniellin94144.github.io/FDB-v3-demo/). Many people have reached out asking about the code and data release — they are currently undergoing internal review. We will update the repository as soon as the review is complete. Thank you for your patience! 🙏
 - **(2026/2/23) Full-Duplex-Bench v2 Framework Release**: Introduced the V2 architecture with a real-time WebRTC orchestrator and automated AI examiner in the [`v2/`](./v2) folder!
 - **(2026/2/21) Codebase Update for New Models and Bug Fixes**: Add Gemini 2.5 Native Audio & PersonaPlex, and update the codebase.
 - **(2025/8/22) v1.5 Server-client Model inference Code Release**: Added server-client inference scripts under [`v1_v1.5/model_inference/`](./v1_v1.5/model_inference).
@@ -41,6 +43,12 @@ The **legacy v1 and v1.5** pipelines evaluate models based on pre-recorded stati
 - **Highlights**: Dynamic multi-turn tasks, WebRTC Node.js orchestrator, conversational constraints, LLM-as-a-judge automated scoring. ([FDB v2.0 paper](https://arxiv.org/abs/2510.07838))
 - **Use Case**: Best for evaluating how well a model converses reactively in a live environment.
 
+### Full-Duplex-Bench-v3
+**👉 [Dive into v3 (Coming soon)]** | [Demo Website](https://daniellin94144.github.io/FDB-v3-demo/)
+
+**FDB-v3** (*Benchmarking Tool Use for Full-Duplex Voice Agents Under Real-World Disfluency*) combines **real human disfluent speech** with **multi-step tool use** to evaluate voice agents under realistic conditions.
+- **What we built**: Real human recordings annotated across 5 disfluency types (fillers, pauses, hesitations, false starts, self-corrections), paired with chained API calls across 4 task domains.
+
 
 ## 🧭 Getting Started
 
@@ -59,24 +67,31 @@ Depending on your goal, please navigate to the respective folder:
 If you found this research helpful, please consider citing our work:
 
 ```bibtex
-@article{lin2025full_v1,
+@article{lin2025fdb_v1,
   title={Full-duplex-bench: A benchmark to evaluate full-duplex spoken dialogue models on turn-taking capabilities},
   author={Lin, Guan-Ting and Lian, Jiachen and Li, Tingle and Wang, Qirui and Anumanchipalli, Gopala and Liu, Alexander H and Lee, Hung-yi},
   journal={arXiv preprint arXiv:2503.04721},
   year={2025}
 }
 
-@article{lin2025full_v15,
+@article{lin2025fdb_v15,
   title={Full-Duplex-Bench v1. 5: Evaluating Overlap Handling for Full-Duplex Speech Models},
   author={Lin, Guan-Ting and Kuan, Shih-Yun Shan and Wang, Qirui and Lian, Jiachen and Li, Tingle and Lee, Hung-yi},
   journal={arXiv preprint arXiv:2507.23159},
   year={2025}
 }
 
-@article{lin2026full_v2,
+@article{lin2026fdb_v2,
   title={Full-Duplex-Bench-v2: A Multi-Turn Evaluation Framework for Duplex Dialogue Systems with an Automated Examiner},
   author={Lin, Guan-Ting and Kuan, Shih-Yun Shan and Shi, Jiatong and Chang, Kai-Wei and Arora, Siddhant and Watanabe, Shinji and Lee, Hung-yi},
   journal={arXiv preprint arXiv:2510.07838},
+  year={2026}
+}
+
+@article{lin2026fdb_v3,
+  title={Full-Duplex-Bench-v3: Benchmarking Tool Use for Full-Duplex Voice Agents Under Real-World Disfluency},
+  author={Lin, Guan-Ting and Chen, Chen and Chen, Zhehuai and Lee, Hung-yi},
+  journal={arXiv preprint arXiv:2604.04847},
   year={2026}
 }
 
