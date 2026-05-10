@@ -63,9 +63,7 @@ if not GEMINI_API_KEY:
 
 
 def make_client() -> genai.Client:
-    # vertexai=False forces the public Gemini API key endpoint regardless of
-    # GOOGLE_GENAI_USE_VERTEXAI; gemini-3.1-flash-live-preview is currently
-    # only reachable that way.
+    # ensure routing through official API
     return genai.Client(vertexai=False, api_key=GEMINI_API_KEY)
 
 
