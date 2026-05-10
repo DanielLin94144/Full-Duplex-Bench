@@ -45,9 +45,9 @@ Benchmark for full-duplex spoken dialogue models — v1.0 evaluates turn-taking,
     <tr>
       <td><b>PersonaPlex</b></td>
       <td>0.584</td><td>0.662</td>
-      <td>0.327</td><td><b>0.025</b></td><td><b>0.649</b></td>
-      <td><b>0.992</b></td><td><b>0.070</b></td>
-      <td><b>1.000</b></td><td>4.210</td><td>0.400</td>
+      <td>0.327</td><td>0.025</td><td><b>0.649</b></td>
+      <td>0.992</td><td><b>0.070</b></td>
+      <td><b>1.000</b></td><td><b>4.210</b></td><td>0.400</td>
     </tr>
     <tr>
       <td><b>dGSLM</b></td>
@@ -66,7 +66,7 @@ Benchmark for full-duplex spoken dialogue models — v1.0 evaluates turn-taking,
     <tr>
       <td><b>Freeze-Omni</b></td>
       <td>0.642</td><td>0.481</td>
-      <td><b>0.636</b></td><td>0.001</td><td>0.997</td>
+      <td>0.636</td><td>0.001</td><td>0.997</td>
       <td>0.336</td><td>0.953</td>
       <td>0.867</td><td>3.615</td><td>1.409</td>
     </tr>
@@ -79,10 +79,24 @@ Benchmark for full-duplex spoken dialogue models — v1.0 evaluates turn-taking,
     </tr>
     <tr>
       <td><b>GPT-Realtime</b></td>
-      <td><b>0.010</b></td><td><b>0.120</b></td>
+      <td>0.010</td><td>0.120</td>
       <td><b>0.000</b></td><td>0.007</td><td>0.980</td>
       <td><b>1.000</b></td><td>1.470</td>
       <td>0.970</td><td>3.850</td><td>1.500</td>
+    </tr>
+    <tr>
+      <td><b>Gemini 3.1 Flash Live (minimal)</b></td>
+      <td>0.022</td><td>0.153</td>
+      <td>0.727</td><td><b>0.044</b></td><td>0.807</td>
+      <td><b>1.000</b></td><td>0.567</td>
+      <td><b>1.000</b></td><td>3.575</td><td>0.337</td>
+    </tr>
+    <tr>
+      <td><b>Gemini 3.1 Flash Live (high)</b></td>
+      <td><b>0.007</b></td><td><b>0.102</b></td>
+      <td>0.491</td><td>0.030</td><td>0.853</td>
+      <td>0.992</td><td>0.940</td>
+      <td>0.995</td><td>4.121</td><td>0.651</td>
     </tr>
   </tbody>
 </table>
@@ -120,6 +134,7 @@ The goal of model inference is to let the model generate the time-synchronous `o
 
 We provide inference scripts under `v1_v1.5/model_inference/` for different models:
 - **Gemini 2.5 Native Audio**: `v1_v1.5/model_inference/gemini/inference_gemini25_native.py`
+- **Gemini 3.1 Flash Live**: Google's latest API `gemini-3.1-flash-live-preview` as of 2026/5. We report results using the [official api](`https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-live-preview`) with `--thinking-level {minimal|high}`.
 - **Gemini 2.0 (NOT SUPPORTED)**: originally in `v1_v1.5/model_inference/gemini/inference.py`, but it is not supported anymore due to the API changes.
 - **PersonaPlex** (NVIDIA): See [official repo](https://github.com/NVIDIA/personaplex#offline-evaluation)
 - **Moshi**: `v1_v1.5/model_inference/moshi/inference.py`
