@@ -33,6 +33,10 @@ def eval_backchannel(data_dir):
             raise FileNotFoundError("Required file 'output.wav' not found.")
 
         wav, sr = torchaudio.load(out_wav_path)
+        if sr != 16000:
+            # silero assumes 16kHz input & we are not passing sr to it
+            wav = torchaudio.functional.resample(wav, sr, 16000)
+            sr = 16000
 
         segments = get_speech_timestamps(
             wav,

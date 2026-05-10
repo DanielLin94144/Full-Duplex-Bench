@@ -10,9 +10,12 @@ from tqdm import tqdm
 MODEL_NAME = ""
 
 
-def get_time_aligned_transcription(data_path, task):
-    # Collect all output.wav files under the root directory
-    audio_paths = sorted(glob(f"{data_path}/*/{MODEL_NAME}output.wav"))
+def get_time_aligned_transcription(data_path, task, audio_name="output.wav"):
+    # Collect all matching audio files under the root directory
+    audio_paths = sorted(glob(f"{data_path}/*/{MODEL_NAME}{audio_name}"))
+
+    # JSON output filename mirrors the audio filename (e.g. clean_input.wav -> clean_input.json)
+    json_name = audio_name.rsplit(".", 1)[0] + ".json"
 
     # Load the pretrained NeMo ASR model and move to GPU
     asr_model = nemo_asr.models.ASRModel.from_pretrained(
@@ -32,7 +35,7 @@ def get_time_aligned_transcription(data_path, task):
 
         if task == "user_interruption":
             # Load the interrupt metadata to get [start, end] timestamps
-            meta_path = audio_path.replace(f"{MODEL_NAME}output.wav", "interrupt.json")
+            meta_path = audio_path.replace(f"{MODEL_NAME}{audio_name}", "interrupt.json")
             with open(meta_path, "r") as f:
                 interrupt_meta = json.load(f)
 
@@ -79,7 +82,7 @@ def get_time_aligned_transcription(data_path, task):
         }
 
         # Write the JSON result next to the WAV file
-        result_path = audio_path.replace(f"{MODEL_NAME}output.wav", "output.json")
+        result_path = audio_path.replace(f"{MODEL_NAME}{audio_name}", json_name)
         os.makedirs(os.path.dirname(result_path), exist_ok=True)
         with open(result_path, "w") as f:
             json.dump(output_dict, f, indent=4)
@@ -102,6 +105,14 @@ if __name__ == "__main__":
         choices=["default", "user_interruption"],
         help="Choose 'default' for entire transcript or 'user_interruption' to crop before ASR.",
     )
+    parser.add_argument(
+        "--audio_name",
+        type=str,
+        default="output.wav",
+        help="Filename of the audio to transcribe within each sample folder. "
+             "Use 'clean_input.wav', 'clean_output.wav', or 'input.wav' for v1.5. "
+             "JSON output filename mirrors this (e.g. 'clean_output.wav' -> 'clean_output.json').",
+    )
     args = parser.parse_args()
 
-    get_time_aligned_transcription(args.root_dir, args.task)
+    get_time_aligned_transcription(args.root_dir, args.task, args.audio_name)

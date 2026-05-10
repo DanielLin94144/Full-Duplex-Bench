@@ -78,6 +78,7 @@ def _load_silero(force_reload: bool = False):
         model="silero_vad",
         force_reload=force_reload,
         onnx=False,
+        trust_repo=True,
     )
     return _silero_model, _silero_utils
 
