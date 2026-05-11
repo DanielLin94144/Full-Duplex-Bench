@@ -17,6 +17,7 @@
 
 Welcome to **Full-Duplex-Bench**, with v1.0, v1.5, v2.0, and v3.0, a comprehensive framework designed to evaluate the conversational and turn-taking capabilities of spoken language models.
 ## News 🔥
+- **(2026/5/10) Codebase Update for New Models and Bug Fixes**: Add Gemini 3.1 Flash Live Preview to v1/v1.5, and update the codebase.
 - **(2026/4/15) Full-Duplex-Bench v3 Paper Released**: The [FDB-v3 paper](https://arxiv.org/abs/2604.04847) is now on arXiv with a [demo website](https://daniellin94144.github.io/FDB-v3-demo/). Many people have reached out asking about the code and data release — they are currently undergoing internal review. We will update the repository as soon as the review is complete. Thank you for your patience! 🙏
 - **(2026/2/23) Full-Duplex-Bench v2 Framework Release**: Introduced the V2 architecture with a real-time WebRTC orchestrator and automated AI examiner in the [`v2/`](./v2) folder!
 - **(2026/2/21) Codebase Update for New Models and Bug Fixes**: Add Gemini 2.5 Native Audio & PersonaPlex, and update the codebase.
