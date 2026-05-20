@@ -156,25 +156,42 @@ Under `v1_v1.5/get_transcript` folder, you can find `asr.py` to obtain the time-
 #### 3. Running Evaluations
 Under `v1_v1.5/evaluation` folder, please see the readme file in the folder for detailed instruction to run the evaluation for each tasks.
 
-## Citation 📖
-If you have any questions, please feel free to submit an issue or contact Guan-Ting Lin (daniel094144@gmail.com)
+## 📖 Citation
 
 If you found this research helpful, please consider citing our work:
 
-```
-@article{lin2025full_v1,
+```bibtex
+@article{lin2025fdb_v1,
   title={Full-duplex-bench: A benchmark to evaluate full-duplex spoken dialogue models on turn-taking capabilities},
   author={Lin, Guan-Ting and Lian, Jiachen and Li, Tingle and Wang, Qirui and Anumanchipalli, Gopala and Liu, Alexander H and Lee, Hung-yi},
   journal={arXiv preprint arXiv:2503.04721},
   year={2025}
 }
 
-@article{lin2025full_v15,
+@article{lin2025fdb_v15,
   title={Full-Duplex-Bench v1. 5: Evaluating Overlap Handling for Full-Duplex Speech Models},
   author={Lin, Guan-Ting and Kuan, Shih-Yun Shan and Wang, Qirui and Lian, Jiachen and Li, Tingle and Lee, Hung-yi},
   journal={arXiv preprint arXiv:2507.23159},
   year={2025}
 }
+
+@article{lin2026fdb_v2,
+  title={Full-Duplex-Bench-v2: A Multi-Turn Evaluation Framework for Duplex Dialogue Systems with an Automated Examiner},
+  author={Lin, Guan-Ting and Kuan, Shih-Yun Shan and Shi, Jiatong and Chang, Kai-Wei and Arora, Siddhant and Watanabe, Shinji and Lee, Hung-yi},
+  journal={arXiv preprint arXiv:2510.07838},
+  year={2026}
+}
+
+@article{lin2026fdb_v3,
+  title={Full-Duplex-Bench-v3: Benchmarking Tool Use for Full-Duplex Voice Agents Under Real-World Disfluency},
+  author={Lin, Guan-Ting and Chen, Chen and Chen, Zhehuai and Lee, Hung-yi},
+  journal={arXiv preprint arXiv:2604.04847},
+  year={2026}
+}
 ```
+
+---
+*For questions, please feel free to submit an issue or contact Guan-Ting Lin (daniel094144@gmail.com).*
+
 
 
