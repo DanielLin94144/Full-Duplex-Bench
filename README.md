@@ -17,8 +17,9 @@
 
 Welcome to **Full-Duplex-Bench**, with v1.0, v1.5, v2.0, and v3.0, a comprehensive framework designed to evaluate the conversational and turn-taking capabilities of spoken language models.
 ## News 🔥
+- **(2026/5/20) Full-Duplex-Bench v3 Code & Data Release**: The v3 codebase and benchmark data are now publicly available! Check out the [`v3/`](./v3) folder for the full inference and evaluation pipeline. Download the benchmark data [here](https://drive.google.com/file/d/1SO_4MTazWQ_jvCx0dtmpQ-t40bdd07yz/view?usp=sharing).
 - **(2026/5/10) Codebase Update for New Models and Bug Fixes**: Add Gemini 3.1 Flash Live Preview to v1/v1.5, and update the codebase.
-- **(2026/4/15) Full-Duplex-Bench v3 Paper Released**: The [FDB-v3 paper](https://arxiv.org/abs/2604.04847) is now on arXiv with a [demo website](https://daniellin94144.github.io/FDB-v3-demo/). Many people have reached out asking about the code and data release — they are currently undergoing internal review. We will update the repository as soon as the review is complete. Thank you for your patience! 🙏
+- **(2026/4/15) Full-Duplex-Bench v3 Paper Released**: The [FDB-v3 paper](https://arxiv.org/abs/2604.04847) is now on arXiv with a [demo website](https://daniellin94144.github.io/FDB-v3-demo/).
 - **(2026/2/23) Full-Duplex-Bench v2 Framework Release**: Introduced the V2 architecture with a real-time WebRTC orchestrator and automated AI examiner in the [`v2/`](./v2) folder!
 - **(2026/2/21) Codebase Update for New Models and Bug Fixes**: Add Gemini 2.5 Native Audio & PersonaPlex, and update the codebase.
 - **(2025/8/22) v1.5 Server-client Model inference Code Release**: Added server-client inference scripts under [`v1_v1.5/model_inference/`](./v1_v1.5/model_inference).
@@ -44,8 +45,8 @@ The **legacy v1 and v1.5** pipelines evaluate models based on pre-recorded stati
 - **Highlights**: Dynamic multi-turn tasks, WebRTC Node.js orchestrator, conversational constraints, LLM-as-a-judge automated scoring. ([FDB v2.0 paper](https://arxiv.org/abs/2510.07838))
 - **Use Case**: Best for evaluating how well a model converses reactively in a live environment.
 
-### Full-Duplex-Bench-v3
-**👉 [Dive into v3 (Coming soon)]** | [Demo Website](https://daniellin94144.github.io/FDB-v3-demo/)
+### [Full-Duplex-Bench-v3 (Tool Use Under Real-World Disfluency)](./v3)
+**👉 [Dive into v3](./v3/README.md)** | [Demo Website](https://daniellin94144.github.io/FDB-v3-demo/) | [Download Data](https://drive.google.com/file/d/1SO_4MTazWQ_jvCx0dtmpQ-t40bdd07yz/view?usp=sharing)
 
 **FDB-v3** (*Benchmarking Tool Use for Full-Duplex Voice Agents Under Real-World Disfluency*) combines **real human disfluent speech** with **multi-step tool use** to evaluate voice agents under realistic conditions.
 - **What we built**: Real human recordings annotated across 5 disfluency types (fillers, pauses, hesitations, false starts, self-corrections), paired with chained API calls across 4 task domains.
@@ -60,6 +61,9 @@ Depending on your goal, please navigate to the respective folder:
 
 - **To benchmark a model using the latest real-time automated AI examiner (v2):**  
   Navigate to the [`v2/` directory](./v2) and follow the combined Node.js and Python setup instructions.
+
+- **To evaluate voice agents on multi-step tool calling with real human disfluent speech (v3):**  
+  Navigate to the [`v3/` directory](./v3) and follow the setup instructions. Download the benchmark data from [Google Drive](https://drive.google.com/file/d/1SO_4MTazWQ_jvCx0dtmpQ-t40bdd07yz/view?usp=sharing).
 
 
 
