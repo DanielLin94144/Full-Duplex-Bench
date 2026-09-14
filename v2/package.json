@@ -5,12 +5,12 @@
   "main": "orchestrator.js",
   "scripts": {
     "start": "node orchestrator.js gpt4oRealtime gpt4oRealtime",
-    "run": "MODEL_A=gpt4oRealtime MODEL_B=gpt4oRealtime ./run_gpt4o_conversation.sh"
+    "run": "MODEL_A=gpt4oRealtime MODEL_B=gpt4oRealtime ./run_gpt4o_conversation.sh",
+    "test:webrtc": "node tests/webrtc-smoke.cjs"
   },
   "dependencies": {
     "@google/genai": "^1.5.1",
     "@openai/realtime-api-beta": "github:openai/openai-realtime-api-beta",
-    "@roamhq/wrtc-linux-x64": "^0.9.1",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "fetch": "^1.1.0",
@@ -26,15 +26,12 @@
     "wav-decoder": "^1.3.0",
     "wav-encoder": "^1.3.0",
     "wavefile": "^11.0.0",
-    "wrtc": "^0.4.7",
+    "wrtc": "npm:@roamhq/wrtc@0.9.1",
     "ws": "^8.14.0",
     "yargs": "^17.7.2"
   },
   "engines": {
     "node": ">=16"
   },
-  "license": "MIT",
-  "devDependencies": {
-    "node-pre-gyp": "^0.17.0"
-  }
+  "license": "MIT"
 }

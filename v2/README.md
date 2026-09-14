@@ -34,9 +34,30 @@ nvm use 22.3.0
 ### 2. Install NPM Dependencies
 Install the required orchestrator modules:
 ```bash
-npm install --save-dev node-pre-gyp
 npm ci
 ```
+
+The `wrtc` dependency is an npm alias for `@roamhq/wrtc`. It selects the
+prebuilt native package for the host platform, including Linux ARM64 and
+Apple Silicon, while existing `require('wrtc')` imports stay unchanged.
+Keep npm's optional dependencies enabled so it can install the native package.
+
+Check the native binding after installation:
+
+```bash
+node -e "const w = require('wrtc'); const p = new w.RTCPeerConnection(); p.close(); console.log(process.platform, process.arch, 'WebRTC loaded'); process.exit(0)"
+```
+
+To test local audio transfer in both directions:
+
+```bash
+npm run test:webrtc
+```
+
+This test sends synthetic audio between two WebRTC peers. It needs no API keys
+or model server. It checks 48 kHz mono PCM16 audio and uses the same explicit
+process exit as the adapters. It does not test native cleanup at natural process
+exit, which can crash with both the legacy `wrtc` package and `@roamhq/wrtc`.
 
 ### 3. Create a Python Environment
 You will need a Python environment to run the evaluation metrics powered by NeMo ASR and Gemini LLM judges.
