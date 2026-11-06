@@ -8,6 +8,7 @@ from collections import deque
 from typing import Dict, List, Tuple, Any, Optional
 
 import numpy as np
+import soundfile as sf
 import torch
 import torchaudio
 import torchaudio.functional as F
@@ -142,7 +143,9 @@ def detect_sudden_cutoffs(
 
 
 def _load_audio(path: str, target_sr: int = 16000) -> Tuple[torch.Tensor, int]:
-    wav, sr = torchaudio.load(path)
+    # soundfile instead of torchaudio.load (needs torchcodec from torchaudio 2.9 on)
+    data, sr = sf.read(path, dtype="float32", always_2d=True)
+    wav = torch.from_numpy(data.T.copy())
     if sr != target_sr:
         wav = torchaudio.functional.resample(wav, sr, target_sr)
         sr = target_sr
@@ -306,7 +309,8 @@ def _run_squim_objective(wav: torch.Tensor) -> Dict[str, float]:
 def _run_utmosv2(wav: torch.Tensor, sr: int) -> float:
     _load_models()
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmpf:
-        torchaudio.save(tmpf.name, wav, sr)
+        # 32-bit float WAV, as torchaudio.save wrote for float32 tensors
+        sf.write(tmpf.name, wav.cpu().numpy().T, sr, subtype="FLOAT")
         mos = _utmosv2_model.predict(input_path=tmpf.name)
     try:
         os.unlink(tmpf.name)
