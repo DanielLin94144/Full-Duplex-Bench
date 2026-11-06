@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse, json, importlib
 from pathlib import Path
 from typing import List, Tuple
+import soundfile as sf
 import torch, torchaudio
 
 # ---------------- Parameters ----------------
@@ -51,7 +52,9 @@ else:
 
 # -------------- Helpers --------------------
 def load_wav(p: Path):
-    wav, sr = torchaudio.load(p)
+    # soundfile instead of torchaudio.load (needs torchcodec from torchaudio 2.9 on)
+    data, sr = sf.read(str(p), dtype="float32", always_2d=True)
+    wav = torch.from_numpy(data.T.copy())
     if sr != SR:
         wav = torchaudio.functional.resample(wav, sr, SR)
     return wav.squeeze(0)
