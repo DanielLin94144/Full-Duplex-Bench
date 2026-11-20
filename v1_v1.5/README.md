@@ -129,6 +129,11 @@ Required environment variables (see `.env.example` for template):
 - `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION` - For Nova Sonic
 
 ### Step-by-step Instruction
+#### 0. Download the Data
+See [`dataset/README.md`](./dataset/README.md#data-access). In short:
+- **v1.0 ICC / Synthetic subsets and all of v1.5**: download from our [Google Drive folder](https://drive.google.com/drive/folders/1DtoxMVO9_Y_nDs2peZtx3pw-U2qYgpd3?usp=sharing).
+- **v1.0 CANDOR subsets** (Candor pause handling, Candor smooth turn-taking): no longer distributed through our Google Drive. CANDOR data is available only from BetterUp under the CANDOR Corpus License. We are updating how to obtain these subsets and will update this README as soon as possible. If you report results on these subsets, please also cite the [CANDOR paper](https://www.science.org/doi/full/10.1126/sciadv.adf3197) (`reece2023candor` below).
+
 #### 1. Model Inference
 The goal of model inference is to let the model generate the time-synchronous `output.wav` given the audio stream of user speech (`input.wav`). You can use your own model to generate the output speech for evaluation.
 
@@ -173,6 +178,22 @@ If you found this research helpful, please consider citing our work:
   author={Lin, Guan-Ting and Kuan, Shih-Yun Shan and Wang, Qirui and Lian, Jiachen and Li, Tingle and Lee, Hung-yi},
   journal={arXiv preprint arXiv:2507.23159},
   year={2025}
+}
+```
+
+If you report results on the **CANDOR subsets** of v1.0 (Candor pause handling / Candor smooth turn-taking), please also cite:
+
+```bibtex
+@article{reece2023candor,
+  title={The CANDOR corpus: Insights from a large multimodal dataset of naturalistic conversation},
+  author={Reece, Andrew and Cooney, Gus and Bull, Peter and Chung, Christine and Dawson, Bryn and Fitzpatrick, Casey and Glazer, Tamara and Knox, Dean and Liebscher, Alex and Marin, Sebastian},
+  journal={Science Advances},
+  volume={9},
+  number={13},
+  pages={eadf3197},
+  year={2023},
+  publisher={American Association for the Advancement of Science},
+  doi={10.1126/sciadv.adf3197}
 }
 ```
 

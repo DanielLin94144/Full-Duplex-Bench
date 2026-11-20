@@ -55,7 +55,7 @@ Supported tasks:
 
 **Example**
 ```bash
-python evaluate.py --task pause_handling   --root_dir /path/to/data-full-duplex-bench/v1.0/pause_handling_example
+python evaluate.py --task pause_handling   --root_dir /path/to/v1_0/synthetic_pause_handling
 ```
 
 ---
