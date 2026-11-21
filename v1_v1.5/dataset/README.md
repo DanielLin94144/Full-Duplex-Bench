@@ -3,14 +3,22 @@
 ## Data Access
 
 > [!IMPORTANT]
-> **The CANDOR subsets of v1.0 (`candor_pause_handling`, `candor_turn_taking`) are no longer distributed through our Google Drive folder.**
-> CANDOR data is available only from BetterUp and is governed by the CANDOR Corpus License.
-> We are updating how to obtain these two subsets and will update this page as soon as possible. All other subsets are unchanged.
+> **The CANDOR subsets of v1.0 (`candor_pause_handling`, `candor_turn_taking`) are available only from BetterUp's gated Hugging Face repository [`betterup/candor-full-duplex-bench`](https://huggingface.co/datasets/betterup/candor-full-duplex-bench).**
+> They are governed by the CANDOR Corpus License. The folder layout and file names are unchanged, so inference and evaluation code runs as before. All other subsets are still in our Google Drive folder.
 
 | Subset(s) | Where to get it |
 |---|---|
-| v1.0 **CANDOR** (`candor_pause_handling`, `candor_turn_taking`) | Being updated (see the note above) |
-| v1.0 ICC, Synthetic; all of v1.5 | Our [Google Drive folder](https://drive.google.com/drive/folders/1DtoxMVO9_Y_nDs2peZtx3pw-U2qYgpd3?usp=sharing) (unchanged) |
+| v1.0 **CANDOR** (`candor_pause_handling`, `candor_turn_taking`) | BetterUp: [`betterup/candor-full-duplex-bench`](https://huggingface.co/datasets/betterup/candor-full-duplex-bench) (gated; see [below](#downloading-the-candor-subsets)) |
+| v1.0 ICC, Synthetic; all of v1.5 | Our [Google Drive folder](https://drive.google.com/drive/folders/1DtoxMVO9_Y_nDs2peZtx3pw-U2qYgpd3?usp=sharing) |
+
+### Downloading the CANDOR subsets
+1. Sign in to Hugging Face, open [betterup/candor-full-duplex-bench](https://huggingface.co/datasets/betterup/candor-full-duplex-bench), fill in the short access form and agree to the CANDOR Corpus License. You do not need to apply for the full CANDOR corpus.
+2. Download (requires a recent `huggingface_hub`: `pip install -U huggingface_hub`):
+   ```bash
+   hf auth login
+   hf download betterup/candor-full-duplex-bench --repo-type dataset --local-dir ./candor-full-duplex-bench
+   ```
+3. This creates `candor-full-duplex-bench/candor_pause_handling/` (216 samples) and `candor-full-duplex-bench/candor_turn_taking/` (119 samples). Use these folders as the data / `--root_dir` paths for inference and evaluation, or move them into your `v1_0/` folder next to the other subsets.
 
 If you previously downloaded `candor_pause_handling.zip` or `candor_turn_taking.zip` from our Google Drive, please do not share or re-upload them. CANDOR data may only be redistributed with BetterUp's permission.
 
@@ -90,8 +98,7 @@ v1_0/
 │
 ├── candor_turn_taking/{ID}/      # CANDOR subset (see Data Access)
 │   ├── input.wav                 # User speech input stream
-│   ├── turn_taking.json          # Annotations of turn-taking events
-│   └── transcription.json        # Text and time-aligned transcription
+│   └── turn_taking.json          # Annotations of turn-taking events
 │
 ├── icc_backchannel/{ID}/
 │   ├── input.wav                 # User speech input stream
@@ -141,7 +148,7 @@ v1_5/
 ## License
 ### v1.0 CANDOR subsets
 The `candor_pause_handling` and `candor_turn_taking` subsets are clips from the CANDOR Corpus ([Reece et al., 2023](https://www.science.org/doi/full/10.1126/sciadv.adf3197)). This benchmark uses the CANDOR Corpus from BetterUp Labs, BetterUp, Inc.
-These subsets are **not** licensed by us. They are governed solely by the **CANDOR Corpus License** and are available only from BetterUp. Please do not redistribute them.
+These subsets are **not** licensed by us. They are governed solely by the **CANDOR Corpus License** and are available only from BetterUp ([`betterup/candor-full-duplex-bench`](https://huggingface.co/datasets/betterup/candor-full-duplex-bench)). Please do not redistribute them.
 
 ### v1.0 ICC subset
 Selected from [ICC](https://aclanthology.org/2024.findings-emnlp.909/). Please follow the license and terms of use of the original ICC release.

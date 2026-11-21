@@ -132,7 +132,13 @@ Required environment variables (see `.env.example` for template):
 #### 0. Download the Data
 See [`dataset/README.md`](./dataset/README.md#data-access). In short:
 - **v1.0 ICC / Synthetic subsets and all of v1.5**: download from our [Google Drive folder](https://drive.google.com/drive/folders/1DtoxMVO9_Y_nDs2peZtx3pw-U2qYgpd3?usp=sharing).
-- **v1.0 CANDOR subsets** (Candor pause handling, Candor smooth turn-taking): no longer distributed through our Google Drive. CANDOR data is available only from BetterUp under the CANDOR Corpus License. We are updating how to obtain these subsets and will update this README as soon as possible. If you report results on these subsets, please also cite the [CANDOR paper](https://www.science.org/doi/full/10.1126/sciadv.adf3197) (`reece2023candor` below).
+- **v1.0 CANDOR subsets** (Candor pause handling, Candor smooth turn-taking): available only from BetterUp's gated Hugging Face repository [`betterup/candor-full-duplex-bench`](https://huggingface.co/datasets/betterup/candor-full-duplex-bench), under the CANDOR Corpus License. Request access on that page, then run
+  ```bash
+  pip install -U huggingface_hub   # provides the `hf` command
+  hf auth login
+  hf download betterup/candor-full-duplex-bench --repo-type dataset --local-dir ./candor-full-duplex-bench
+  ```
+  The folder layout and file names are the same as before. See [`dataset/README.md`](./dataset/README.md#downloading-the-candor-subsets) for details. If you report results on these subsets, please also cite the [CANDOR paper](https://www.science.org/doi/full/10.1126/sciadv.adf3197) (`reece2023candor` below).
 
 #### 1. Model Inference
 The goal of model inference is to let the model generate the time-synchronous `output.wav` given the audio stream of user speech (`input.wav`). You can use your own model to generate the output speech for evaluation.

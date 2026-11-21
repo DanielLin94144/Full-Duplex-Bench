@@ -17,7 +17,7 @@
 
 Welcome to **Full-Duplex-Bench**, with v1.0, v1.5, v2.0, and v3.0, a comprehensive framework designed to evaluate the conversational and turn-taking capabilities of spoken language models.
 ## News 🔥
-- **(2026/11) Update on the v1.0 CANDOR subsets**: The Candor pause-handling and Candor smooth turn-taking subsets of v1.0 have been removed from our Google Drive. We are updating how to obtain them and will update this README as soon as possible. See [Data Sources & Attribution](#-data-sources--attribution).
+- **(2026/11) v1.0 CANDOR subsets now hosted by BetterUp**: The Candor pause-handling and Candor smooth turn-taking subsets of v1.0 are now available only from BetterUp's gated Hugging Face repository [`betterup/candor-full-duplex-bench`](https://huggingface.co/datasets/betterup/candor-full-duplex-bench), instead of our Google Drive. The folder layout and file names are unchanged, so inference and evaluation code runs as before. See [Data Sources & Attribution](#-data-sources--attribution) and the [download steps](./v1_v1.5/dataset/README.md#downloading-the-candor-subsets).
 - **(2026/5/20) Full-Duplex-Bench v3 Code & Data Release**: The v3 codebase and benchmark data are now publicly available! Check out the [`v3/`](./v3) folder for the full inference and evaluation pipeline. Download the benchmark data [here](https://drive.google.com/file/d/1SO_4MTazWQ_jvCx0dtmpQ-t40bdd07yz/view?usp=sharing).
 - **(2026/5/10) Codebase Update for New Models and Bug Fixes**: Add Gemini 3.1 Flash Live Preview to v1/v1.5, and update the codebase.
 - **(2026/4/15) Full-Duplex-Bench v3 Paper Released**: The [FDB-v3 paper](https://arxiv.org/abs/2604.04847) is now on arXiv with a [demo website](https://daniellin94144.github.io/FDB-v3-demo/).
@@ -72,7 +72,7 @@ Depending on your goal, please navigate to the respective folder:
 
 **CANDOR (v1.0 Candor pause handling & Candor smooth turn-taking).**
 Full-Duplex-Bench v1.0 uses the CANDOR Corpus from BetterUp Labs, BetterUp, Inc. ([betterup/candor-tabular](https://huggingface.co/datasets/betterup/candor-tabular)), introduced in [Reece et al. (2023)](https://www.science.org/doi/full/10.1126/sciadv.adf3197).
-- The CANDOR subsets are no longer distributed through our Google Drive. We are updating how to obtain them and will update this README as soon as possible.
+- BetterUp's [`betterup/candor-full-duplex-bench`](https://huggingface.co/datasets/betterup/candor-full-duplex-bench) is the only source of the CANDOR clips used in this benchmark. Request access on that page and follow the [download steps](./v1_v1.5/dataset/README.md#downloading-the-candor-subsets). The clips are governed by the CANDOR Corpus License, not by this repository's license. Please do not redistribute them.
 - **If you use pause-handling or turn-taking from the CANDOR subsets, please cite the CANDOR paper (`reece2023candor` below) alongside Full-Duplex-Bench.**
 
 **Other data.** The v1.0 ICC subset comes from [Umair et al. (2024)](https://aclanthology.org/2024.findings-emnlp.909/); please follow its original terms. The synthetic v1.0 subsets and v1.5 data are created by us. See [`v1_v1.5/dataset/README.md`](./v1_v1.5/dataset/README.md#license) for per-subset licenses.
