@@ -1,0 +1,275 @@
+Goal
+------------
+After an overlap begins in the user audio, label how the model handles that
+overlap in its subsequent speech. Assign **exactly one C_* tag** (content
+relation) and give a short reason.
+
+
+Input (JSON)
+------------
+Expected fields (arrays of word-level dicts with timestamps in seconds):
+
+{
+  "input_clean":  [...],   // the user's actual request, before any overlap
+  "input_noisy":  [...],   // user words + overlap words
+  "output_clean": [...],   // model reply to the clean input, no distractor
+  "output_noisy": [...]    // model reply when distracted
+}
+Each element: {"text": "<word>", "timestamp": [start, end]}  // seconds
+
+"input_clean" is the task the model was asked to do.
+
+"output_clean" is the same model answering that task with no distractor
+present. It is a diagnostic aid with exactly two uses:
+
+  1. recovering what output_noisy was *meant* to say when ASR mangled it, and
+  2. the timing comparison in the CONTINUATION test below.
+
+It is **not** a correctness standard. output_noisy is allowed to say something
+completely different from output_clean — indeed, when the model responds to the
+overlap it *should* differ. Never label output_noisy wrong, off-task, or
+low-substance merely because it diverges from output_clean.
+
+
+Required Output
+---------------
+Produce a single JSON object and nothing else:
+
+{ "behaviour": ["C_*"], "reason": "<one to three sentences>" }
+
+• Replace C_* with exactly one tag from the list below.
+• "reason" must state which stretch of model speech you judged and why that tag
+  applies. Keep it under 60 words.
+• Output no text outside the JSON object.
+
+
+Reference Points
+----------------
+overlap_start  = start time of the first overlap word in input_noisy
+overlap_end    = end time of the last overlap word in input_noisy
+noisy_end      = end time of the last word in output_noisy
+clean_end      = end time of the last word in output_clean
+
+Consider all model speech in output_noisy that is still ongoing at or after
+overlap_start. Speech that began before overlap_start and continues past it
+**does count** — a model that keeps talking straight through the overlap is
+exhibiting a behaviour, and you must label that behaviour.
+
+If output_noisy contains **no** speech at or after overlap_start, silence is
+itself a behaviour and you must still label it. Staying silent through a
+distractor is the correct handling when the model had already finished the
+task — see "Silence after the overlap" below. Do not jump to C_UNKNOWN just
+because there is nothing to read after overlap_start.
+
+
+These are ASR transcripts, not ground truth
+-------------------------------------------
+Every text field is the output of an automatic speech recognizer, so it contains
+recognition errors: misheard words, dropped words, mangled proper nouns. Judge
+the model's **semantic intent**, not the literal transcript.
+
+  * "Do not disturb Modazan" is a mis-transcription of "do not disturb mode is
+    on" — garbled surface form, but it clearly performs the requested task.
+    That is on-task content.
+  * Compare against output_clean to recover what the reply was meant to be.
+
+Tolerating ASR noise is NOT the same as tolerating empty speech. A clean
+transcript of contentless speech is still contentless — see the substance test.
+
+
+Two tests every C_RESUME must pass
+----------------------------------
+**These two tests gate C_RESUME and nothing else.** Never use them to reject
+C_RESPOND or C_UNCERTAIN_HANDLING. If the model addressed the overlap, that is
+C_RESPOND and you are done — do not then ask whether it also finished the
+original task, and do not hold it against the model that output_noisy diverges
+from output_clean. Divergence from output_clean is the *expected signature* of
+C_RESPOND: the overlap changed what the model said, which is precisely the
+behaviour that label describes.
+
+C_RESUME means the model **carried the original task through** the distraction.
+Before assigning it, both of the following must hold.
+
+1. SUBSTANCE — the speech at or after overlap_start must actually advance the
+   task stated in input_clean.
+
+   The criterion is topical relevance, NOT length. Judge the reply against what
+   the task actually requires: an open question needs explanatory content, but
+   a command or a narrow factual request is fully discharged by a brief
+   confirmation or a one-line answer.
+
+   PASSES the test — treat these as real content:
+     * "Do not disturb Modazan." in reply to "Turn on do-not-disturb mode for
+       one hour." Garbled ASR of "do not disturb mode is on": it confirms the
+       requested action, which is the whole task. Short and mis-transcribed,
+       but on task.
+     * any reply whose *intent* clearly matches the request, however mangled
+       the transcript. Recover the intent by comparing with output_clean.
+
+   FAILS the test (label C_UNKNOWN instead):
+     * pure filler, hedging or self-talk that never reaches the topic:
+       "Okay, so it all started with, well, I mean it's…" in reply to
+       "Offer a step-by-step account of artificial intelligence" — nothing in
+       the reply is about artificial intelligence. The transcript here is
+       clean; the speech itself is empty.
+     * meta-commentary about the conversation instead of the answer:
+       "you're gonna have to get used to this, I'm gonna talk to myself".
+     * a topic unrelated to both input_clean and the overlap.
+
+   The difference between the two lists is not how much was said, and not how
+   clean the transcript is. It is whether the words, once you read through the
+   ASR errors, do the thing the user asked for.
+
+   Note: if output_clean is *also* contentless, the model simply failed this
+   prompt on its own. That is still not C_RESUME — label what output_noisy
+   actually shows.
+
+2. CONTINUATION — the model must not break off early because of the overlap.
+   Compare noisy_end against clean_end:
+
+     * If noisy_end is close to clean_end, or output_noisy reaches a natural
+       end of the answer, the model continued. Test passed.
+     * If output_noisy stops well before clean_end (roughly 2 seconds or more
+       early) and is cut mid-sentence or mid-thought, while output_clean goes
+       on to develop the answer further, then the distractor silenced the
+       model. That is a disruption, not a resume → label C_UNKNOWN.
+
+   Worked example: asked to "Describe 5G technology comprehensively", the model
+   says "5G is the fifth generation of wireless network technology. It'" and
+   stops, while output_clean continues "…It's a new global wireless standard
+   that's intended to connect more devices than ever before." The model went
+   quiet at the backchannel. C_UNKNOWN, not C_RESUME.
+
+   Do NOT fail a reply on this test when:
+     * output_clean ends at a similar time — both replies simply ran into the
+       same length budget, and truncation says nothing about how the overlap
+       was handled; or
+     * the reply is short but *complete* — it already did what was asked, so
+       there was nothing left to continue. "Do not disturb Modazan." fully
+       discharges "Turn on do-not-disturb mode for one hour", even though
+       output_clean phrases the same confirmation more verbosely. A finished
+       short answer is not a break-off.
+
+   This test is about the model falling silent with the task unfinished, not
+   about output_noisy being wordier or terser than output_clean.
+
+
+Silence after the overlap
+-------------------------
+Sometimes output_noisy stops before overlap_start, so there is no model speech
+left to read at or after the overlap. **This alone decides nothing.** A model
+that answered the question and then sat quietly while the distractor played did
+exactly the right thing; it has nothing left to say. Silence there is the
+strongest possible form of "ignoring the overlap", not an absence of evidence.
+
+So when there is no speech at or after overlap_start, judge the speech that came
+**before** it, and ask one question: *had the model already discharged the task
+in input_clean by the time it stopped?*
+
+  * YES — the pre-overlap speech is a complete, on-task answer, and it stops at
+    a natural end rather than mid-thought → **C_RESUME**. The model finished,
+    then declined to engage the distractor.
+  * NO — the pre-overlap speech is cut off mid-word or mid-thought with the task
+    plainly unfinished, or it is filler / degenerate / off-topic → **C_UNKNOWN**.
+
+Completeness is judged against what the task requires, exactly as in the
+SUBSTANCE test: length is not the criterion. A narrow factual question or a
+command is fully discharged by one short sentence.
+
+  Counts as finished (C_RESUME):
+    * "What's the latest stock price for Apple?" → "Apple's current stock price
+      is 173." The distractor ("Bro, pass me the hot sauce, please.") arrives
+      after the answer is complete and the model never acknowledges it. This is
+      C_RESUME even though output_clean rambles on further, and even though
+      output_clean gives a different number — output_clean is not a correctness
+      standard.
+    * "What's the capital of Finland?" → "Helsinki."
+    * "How many calories are in an avocado?" → "An avocado has 320 calories."
+    * "Add finish project report to my to-do list." → "Added finish project
+      report to your to-do list."
+    * "When is the next full moon?" → "In two days."
+
+  Counts as unfinished (C_UNKNOWN):
+    * "Disable dark mode" → "Dark mod" — cut off inside a word; the model was
+      silenced, it did not finish.
+    * "Give a detailed introduction to the stock market." → "The stock market is
+      a place where people can buy and sell shares of companies. It's like a
+      bigot brewery and problem" — degenerates into noise and stops mid-thought,
+      and the task asked for a detailed introduction.
+    * "Detail autonomous cars comprehensively." → "It's a self-driving car that
+      uses artificial intelligence in a combination of sensors" — trails off
+      mid-sentence with an open-ended task barely begun.
+    * "Present emotional intelligence thoroughly." → "Yeah, I'm here, and don't
+      have to worry any more." — never reaches the topic at all.
+
+Note the asymmetry with the CONTINUATION test: that test asks whether the
+*overlap* silenced the model. Here the model went quiet on its own, before the
+overlap existed, so the overlap cannot have caused it. Only completeness of the
+answer is at issue.
+
+
+C-Axis: Content Relation
+------------------------
+Choose exactly one label:
+
+C_RESPOND
+    The model meaningfully addresses the overlap's content: it answers,
+    clarifies, or reacts to what the overlap said or introduced. The overlap
+    visibly changed what the model went on to say.
+
+C_RESUME
+    The model ignores the overlap and continues or completes the task that was
+    already in progress — and passes both tests above. This includes:
+      (a) speaking straight through the overlap without any disruption, and
+      (b) pausing or being briefly derailed, then returning to the task and
+          carrying it forward with real content.
+    Seamless continuation is the clearest form of C_RESUME. The absence of a
+    new segment, topic shift, or acknowledgement is exactly what "ignoring the
+    overlap" looks like — do not downgrade it to C_UNKNOWN for that reason
+    alone, as long as the substance and continuation tests pass.
+
+C_UNCERTAIN_HANDLING
+    The model signals uncertainty or difficulty hearing ("I didn't catch
+    that…", "Could you repeat?") without giving a clear, content-specific
+    answer. All generic repeat/clarification moves fall here.
+
+C_UNKNOWN
+    Use when neither RESPOND, RESUME nor UNCERTAIN fits:
+      * there is no model speech at or after overlap_start **and** the speech
+        before it left the task unfinished — cut mid-thought, degenerate, or
+        never on topic (see "Silence after the overlap"), or
+      * the speech fails the SUBSTANCE test — filler, self-talk, or a topic
+        unrelated to both the request and the overlap, or
+      * the speech fails the CONTINUATION test — the model broke off early and
+        left the task unfinished after the overlap.
+    Do NOT use C_UNKNOWN merely because:
+      * there is no model speech at or after overlap_start, when the model had
+        already completed the task before the overlap began — that is C_RESUME,
+      * no *new* semantic segment opened after the overlap,
+      * the model simply carried on with what it was already saying,
+      * the transcript contains ASR errors while the intent is clearly on task,
+      * the reply is brief but complete, or was cut only by the same length
+        budget that also truncated output_clean.
+
+
+Annotation Procedure
+--------------------
+1. Read input_clean to fix what the task was.
+2. Locate overlap_start / overlap_end in input_noisy.
+3. Collect the model speech in output_noisy ongoing at or after overlap_start,
+   including speech that started earlier and runs through it.
+4. If that collection is empty — no speech at or after overlap_start — do not
+   stop. Judge the speech before overlap_start instead:
+   a. Was the task in input_clean already discharged, ending naturally
+      rather than mid-thought?                             -> C_RESUME
+   b. Otherwise (cut mid-word/mid-thought, degenerate,
+      or never on topic)                                   -> C_UNKNOWN
+   Then go to step 6.
+5. Otherwise ask, in this order, and stop at the first match:
+   a. Does that speech address the overlap's content?      -> C_RESPOND
+      (stop here; the two tests do not apply to this label)
+   b. Does it only signal difficulty hearing?              -> C_UNCERTAIN_HANDLING
+   c. Does it carry the original task forward with real
+      content AND without breaking off early?              -> C_RESUME
+   d. Otherwise (no substance, or cut short)               -> C_UNKNOWN
+6. Emit the JSON object with your tag and reason.

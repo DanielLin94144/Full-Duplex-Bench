@@ -99,6 +99,8 @@ def stats_by_axis(records):
 
 
 def read_instruction(task):
+    if task == "behavior":
+        task = os.environ.get("FDB_BEHAVIOR_RUBRIC", "behavior")
     file_path = f"./instruction/{task}.txt"
     with open(file_path, "r", encoding="utf-8") as f:
         instruction_text = f.read()
