@@ -31,6 +31,7 @@ def eval_user_interruption(root_dir, client):
 
     MODEL_NAME = "gpt-4-turbo"
     seed = 0
+    max_attempts = 5  # judge calls per sample before giving up
 
     system_msg = """
    The scenario is that the user and AI are talking in the spoken conversation.
@@ -124,22 +125,28 @@ def eval_user_interruption(root_dir, client):
                     {"role": "user", "content": user_msg},
                 ]
 
-                response = client.chat.completions.create(
-                    model=MODEL_NAME,
-                    messages=messages,
-                    seed=seed,
-                )
+                # Retry only the judge call, with a new seed each time, so that a
+                # reply without a parsable rating does not count the sample twice.
+                for attempt in range(max_attempts):
+                    response = client.chat.completions.create(
+                        model=MODEL_NAME,
+                        messages=messages,
+                        seed=seed + attempt,
+                    )
 
-                prediction = response.choices[0].message.content
+                    prediction = response.choices[0].message.content
 
-                print(prediction)
-                parsed_output = parse_output(prediction + "\n")
+                    print(prediction)
+                    parsed_output = parse_output(prediction + "\n")
 
-                print(parsed_output)
-                if "rating" not in parsed_output:
-                    continue
-                score = parsed_output["rating"]
-                score_list.append(score)
+                    print(parsed_output)
+                    if "rating" in parsed_output:
+                        break
+                else:
+                    raise RuntimeError(
+                        f"No rating found in the judge reply for {file_dir} "
+                        f"after {max_attempts} attempts."
+                    )
 
                 # save the parsed_output to a json file
                 with open(os.path.join(file_dir, "rating.json"), "w") as f:
@@ -163,8 +170,12 @@ def eval_user_interruption(root_dir, client):
 
 
 if __name__ == "__main__":
+    from dotenv import load_dotenv
+    from openai import OpenAI
+
     parser = argparse.ArgumentParser(description="A simple argument parser")
     parser.add_argument("--root_dir", type=str)
     args = parser.parse_args()
 
-    eval_user_interruption(args.root_dir)
+    load_dotenv()
+    eval_user_interruption(args.root_dir, OpenAI(api_key=os.getenv("OPENAI_API_KEY")))
