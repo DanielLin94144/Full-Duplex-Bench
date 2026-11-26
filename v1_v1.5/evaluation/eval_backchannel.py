@@ -5,6 +5,8 @@ from scipy.spatial.distance import jensenshannon
 from scipy.interpolate import interp1d
 
 from silero_vad import load_silero_vad, get_speech_timestamps
+import soundfile as sf
+import torch
 import torchaudio
 import argparse
 
@@ -12,6 +14,13 @@ import argparse
 window_size = 0.2
 epsilon = 1e-10
 time_threshold = 3
+
+
+def load_audio(path):
+    # Same float32 [channels, samples] tensor as torchaudio.load(path).
+    # torchaudio>=2.9 can only read files through the optional torchcodec package.
+    data, sr = sf.read(path, dtype="float32", always_2d=True)
+    return torch.from_numpy(data.T.copy()), sr
 
 
 def eval_backchannel(data_dir):
@@ -32,7 +41,7 @@ def eval_backchannel(data_dir):
         if not os.path.exists(out_wav_path):
             raise FileNotFoundError("Required file 'output.wav' not found.")
 
-        wav, sr = torchaudio.load(out_wav_path)
+        wav, sr = load_audio(out_wav_path)
         if sr != 16000:
             # silero assumes 16kHz input & we are not passing sr to it
             wav = torchaudio.functional.resample(wav, sr, 16000)
